@@ -1,0 +1,198 @@
+import { useState, useRef } from "react";
+import { Phone, Mail, Linkedin, Github, MapPin, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
+import emailjs from "@emailjs/browser";
+
+console.log("KEY:", import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+
+
+// EmailJS Configuration - Get these from your EmailJS dashboard
+// 1. Go to https://www.emailjs.com/ and sign up
+// 2. Create an Email Service (connect your Gmail)
+// 3. Create an Email Template with variables: {{from_name}}, {{from_email}}, {{message}}
+// 4. Get your Public Key from Account > API Keys
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+const contactInfo = [
+  {
+    icon: Phone,
+    label: "Phone",
+    value: "7017174051",
+    href: "tel:+917017174051",
+  },
+  {
+    icon: Mail,
+    label: "Email",
+    value: "vikasind786@gmail.com",
+    href: "mailto:vikasind786@gmail.com",
+  },
+  {
+    icon: Linkedin,
+    label: "LinkedIn",
+    value: "Connect on LinkedIn",
+    href: "https://linkedin.com",
+  },
+  {
+    icon: Github,
+    label: "GitHub",
+    value: "View GitHub",
+    href: "https://github.com",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Noida, Uttar Pradesh",
+    href: "#",
+  },
+];
+
+const ContactSection = () => {
+  const { toast } = useToast();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    try {
+      if (!formRef.current) return;
+
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY
+      );
+
+      toast({
+        title: "Message Sent!",
+        description: "Thank you for reaching out. I'll get back to you soon.",
+      });
+
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      console.error("EmailJS error:", error);
+      toast({
+        title: "Failed to send",
+        description: "Something went wrong. Please try again or email me directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  return (
+    <section id="contact" className="py-24 bg-secondary/30">
+      <div className="container mx-auto px-6">
+        <div className="text-center mb-16">
+          <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
+            Contact
+          </span>
+          <h2 className="text-3xl md:text-4xl font-bold">
+            Let's <span className="gradient-text">Connect</span>
+          </h2>
+          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+            Have a project in mind? Let's discuss how I can help bring your ideas to life
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+          {/* Contact Info */}
+          <div className="space-y-6">
+            <div className="glass-card p-8 rounded-2xl">
+              <h3 className="text-xl font-semibold mb-6">Get in Touch</h3>
+              <div className="space-y-4">
+                {contactInfo.map((info, index) => (
+                  <a
+                    key={index}
+                    href={info.href}
+                    target={info.href.startsWith("http") ? "_blank" : undefined}
+                    rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className="flex items-center gap-4 p-4 rounded-xl bg-background hover:bg-primary/5 transition-colors group"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
+                      <info.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                    </div>
+                    <div>
+                      <div className="text-sm text-muted-foreground">{info.label}</div>
+                      <div className="font-medium">{info.value}</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="glass-card p-8 rounded-2xl">
+            <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+              <input type="hidden" name="to_email" value="vikasind786@gmail.com" />
+              <div>
+                <Input
+                  name="from_name"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                  className="rounded-xl h-12 bg-background"
+                />
+              </div>
+              <div>
+                <Input
+                  name="from_email"
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  className="rounded-xl h-12 bg-background"
+                />
+              </div>
+              <div>
+                <Textarea
+                  name="message"
+                  placeholder="Your Message"
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  required
+                  rows={5}
+                  className="rounded-xl bg-background resize-none"
+                />
+              </div>
+              <Button
+                type="submit"
+                size="lg"
+                className="w-full rounded-xl"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? (
+                  "Sending..."
+                ) : (
+                  <>
+                    Send Message
+                    <Send className="w-4 h-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
