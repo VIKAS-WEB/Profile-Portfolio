@@ -119,40 +119,40 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-24 bg-secondary/30">
+    <section id="contact" className="py-12 sm:py-16 bg-secondary/30">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Contact
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
             Let's <span className="gradient-text">Connect</span>
           </h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+          <p className="text-xs sm:text-sm md:text-base text-muted-foreground mt-4 max-w-2xl mx-auto px-2">
             Have a project in mind? Let's discuss how I can help bring your ideas to life
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto">
           {/* Contact Info */}
-          <div className="space-y-6">
-            <div className="glass-card p-8 rounded-2xl">
-              <h3 className="text-xl font-semibold mb-6">Get in Touch</h3>
-              <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="glass-card p-6 sm:p-8 rounded-2xl">
+              <h3 className="text-base sm:text-xl font-semibold mb-4 sm:mb-6">Get in Touch</h3>
+              <div className="space-y-3 sm:space-y-4">
                 {contactInfo.map((info, index) => (
                   <a
                     key={index}
                     href={info.href}
                     target={info.href.startsWith("http") ? "_blank" : undefined}
                     rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                    className="flex items-center gap-4 p-4 rounded-xl bg-background hover:bg-primary/5 transition-colors group"
+                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl bg-background hover:bg-primary/5 transition-colors group"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
-                      <info.icon className="w-5 h-5 text-primary group-hover:text-primary-foreground transition-colors" />
+                    <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors flex-shrink-0">
+                      <info.icon className="w-4 h-4 sm:w-5 sm:h-5 text-primary group-hover:text-primary-foreground transition-colors" />
                     </div>
                     <div>
-                      <div className="text-sm text-muted-foreground">{info.label}</div>
-                      <div className="font-medium">{info.value}</div>
+                      <div className="text-xs sm:text-sm text-muted-foreground">{info.label}</div>
+                      <div className="text-xs sm:text-base font-medium">{info.value}</div>
                     </div>
                   </a>
                 ))}
@@ -161,9 +161,9 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="glass-card p-8 rounded-2xl">
-            <h3 className="text-xl font-semibold mb-6">Send a Message</h3>
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
+          <div className="glass-card p-6 sm:p-8 rounded-2xl">
+            <h3 className="text-base sm:text-xl font-semibold mb-4 sm:mb-6">Send a Message</h3>
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
               <input type="hidden" name="to_email" value="vikasind786@gmail.com" />
               <div>
                 <Input
@@ -172,7 +172,7 @@ const ContactSection = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   required
-                  className="rounded-xl h-12 bg-background"
+                  className="rounded-xl h-10 sm:h-12 bg-background text-sm"
                 />
               </div>
               <div>
@@ -183,7 +183,7 @@ const ContactSection = () => {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   required
-                  className="rounded-xl h-12 bg-background"
+                  className="rounded-xl h-10 sm:h-12 bg-background text-sm"
                 />
               </div>
               <div>
@@ -193,14 +193,14 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   required
-                  rows={5}
-                  className="rounded-xl bg-background resize-none"
+                  rows={4}
+                  className="rounded-xl bg-background resize-none text-sm"
                 />
               </div>
               <Button
                 type="submit"
                 size="lg"
-                className="w-full rounded-xl"
+                className="w-full rounded-xl text-sm sm:text-base"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -208,7 +208,7 @@ const ContactSection = () => {
                 ) : (
                   <>
                     Send Message
-                    <Send className="w-4 h-4 ml-2" />
+                    <Send className="w-3 h-3 sm:w-4 sm:h-4 ml-2" />
                   </>
                 )}
               </Button>

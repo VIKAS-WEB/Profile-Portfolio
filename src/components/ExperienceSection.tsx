@@ -49,13 +49,13 @@ const experiences = [
 
 const ExperienceSection = () => {
   return (
-    <section id="experience" className="py-24 bg-secondary/30">
+    <section id="experience" className="py-12 sm:py-16 bg-secondary/30">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Experience
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
             My Professional <span className="gradient-text">Journey</span>
           </h2>
         </div>
@@ -66,36 +66,36 @@ const ExperienceSection = () => {
           {experiences.map((exp, index) => (
             <div
               key={index}
-              className={`relative flex flex-col md:flex-row gap-8 mb-12 ${
+              className={`relative flex flex-col md:flex-row gap-4 sm:gap-8 mb-8 sm:mb-12 ${
                 index % 2 === 0 ? "md:flex-row-reverse" : ""
               }`}
             >
-              <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 mt-6 z-10" />
+              <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-primary transform -translate-x-1/2 mt-4 sm:mt-6 z-10" />
 
               <div
-                className={`flex-1 ml-8 md:ml-0 ${
+                className={`flex-1 ml-6 sm:ml-8 md:ml-0 ${
                   index % 2 === 0 ? "md:pr-12" : "md:pl-12"
                 }`}
               >
-                <div className="glass-card p-6 rounded-2xl hover-lift">
-                  <div className="flex items-center gap-2 text-primary text-sm font-medium mb-2">
-                    <Calendar className="w-4 h-4" />
+                <div className="glass-card p-4 sm:p-6 rounded-2xl hover-lift">
+                  <div className="flex items-center gap-2 text-primary text-xs sm:text-sm font-medium mb-2">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4" />
                     {exp.period}
                   </div>
-                  <h3 className="text-xl font-semibold mb-1">{exp.role}</h3>
-                  <div className="flex items-center gap-2 text-muted-foreground mb-4">
-                    <Building2 className="w-4 h-4" />
+                  <h3 className="text-base sm:text-xl font-semibold mb-1">{exp.role}</h3>
+                  <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
+                    <Building2 className="w-3 h-3 sm:w-4 sm:h-4" />
                     <span>{exp.company}</span>
                     <span>•</span>
                     <span>{exp.location}</span>
                   </div>
-                  <ul className="space-y-2">
+                  <ul className="space-y-1 sm:space-y-2">
                     {exp.highlights.map((highlight, idx) => (
                       <li
                         key={idx}
-                        className="text-sm text-muted-foreground flex items-start gap-2"
+                        className="text-xs sm:text-sm text-muted-foreground flex items-start gap-2"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary mt-1 flex-shrink-0" />
                         {highlight}
                       </li>
                     ))}

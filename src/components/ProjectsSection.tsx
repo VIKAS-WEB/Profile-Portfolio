@@ -92,21 +92,21 @@ const ProjectsSection = () => {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
   return (
-    <section id="projects" className="py-24">
+    <section id="projects" className="py-12 sm:py-16">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12 sm:mb-16">
           <span className="inline-block px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
             Projects
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
             Featured <span className="gradient-text">Work</span>
           </h2>
-          <p className="text-muted-foreground mt-4 max-w-2xl mx-auto">
+          <p className="text-sm sm:text-base text-muted-foreground mt-4 max-w-2xl mx-auto px-4">
             A showcase of applications I've built across FinTech, fitness, and e-commerce domains
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {projects.map((project, index) => (
             <div
               key={index}
@@ -114,7 +114,7 @@ const ProjectsSection = () => {
               onClick={() => setSelectedProject(project)}
             >
               {/* Project Image/Gradient */}
-              <div className="h-48 relative overflow-hidden">
+              <div className="h-40 sm:h-48 relative overflow-hidden">
                 <img
                   src={project.image}
                   alt={project.title}
@@ -122,32 +122,32 @@ const ProjectsSection = () => {
                 />
                 <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors" />
 
-                <div className="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-xs font-medium">
+                <div className="absolute top-2 sm:top-4 right-2 sm:right-4 glass-card px-2 sm:px-3 py-1 rounded-full text-xs font-medium">
                   {project.category}
                 </div>
               </div>
 
               {/* Content */}
-              <div className="p-6">
-                <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
+              <div className="p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
+                <p className="text-xs sm:text-sm text-muted-foreground mb-4 line-clamp-2">
                   {project.description}
                 </p>
 
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                <div className="flex items-center justify-between text-xs sm:text-sm">
+                  <div className="flex items-center gap-2 sm:gap-4 text-muted-foreground">
                     <span className="flex items-center gap-1">
-                      <Download className="w-4 h-4" />
+                      <Download className="w-3 h-3 sm:w-4 sm:h-4" />
                       {project.downloads}
                     </span>
                     <span className="flex items-center gap-1">
-                      <Star className="w-4 h-4 text-yellow-500" />
+                      <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" />
                       {project.rating}
                     </span>
                   </div>
-                  <ExternalLink className="w-5 h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
                 </div>
               </div>
             </div>
@@ -156,14 +156,14 @@ const ProjectsSection = () => {
 
         {/* Project Modal */}
         <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
-          <DialogContent className="max-w-2xl">
+          <DialogContent className="max-w-2xl w-[95vw] sm:w-full">
             <DialogHeader>
-              <DialogTitle className="text-2xl">{selectedProject?.title}</DialogTitle>
+              <DialogTitle className="text-xl sm:text-2xl">{selectedProject?.title}</DialogTitle>
             </DialogHeader>
 
             {selectedProject && (
-              <div className="space-y-6">
-                <div className="h-48 rounded-xl overflow-hidden">
+              <div className="space-y-4 sm:space-y-6 max-h-[80vh] overflow-y-auto">
+                <div className="h-40 sm:h-48 rounded-xl overflow-hidden">
                   <img
                     src={selectedProject.image}
                     alt={selectedProject.title}
@@ -172,18 +172,18 @@ const ProjectsSection = () => {
                 </div>
 
                 <div>
-                  <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium mb-3">
+                  <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs sm:text-sm font-medium mb-3">
                     {selectedProject.category}
                   </span>
-                  <p className="text-muted-foreground">{selectedProject.description}</p>
+                  <p className="text-sm sm:text-base text-muted-foreground">{selectedProject.description}</p>
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2">Key Features</h4>
-                  <ul className="grid grid-cols-2 gap-2">
+                  <h4 className="font-semibold mb-2 text-sm sm:text-base">Key Features</h4>
+                  <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {selectedProject.features.map((feature, idx) => (
-                      <li key={idx} className="text-sm text-muted-foreground flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                      <li key={idx} className="text-xs sm:text-sm text-muted-foreground flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
@@ -191,12 +191,12 @@ const ProjectsSection = () => {
                 </div>
 
                 <div>
-                  <h4 className="font-semibold mb-2">Technologies</h4>
+                  <h4 className="font-semibold mb-2 text-sm sm:text-base">Technologies</h4>
                   <div className="flex flex-wrap gap-2">
                     {selectedProject.tech.map((tech, idx) => (
                       <span
                         key={idx}
-                        className="px-3 py-1 rounded-full bg-secondary text-sm"
+                        className="px-2 sm:px-3 py-1 rounded-full bg-secondary text-xs sm:text-sm"
                       >
                         {tech}
                       </span>
@@ -205,14 +205,14 @@ const ProjectsSection = () => {
                 </div>
 
                 <div className="space-y-4 pt-4 border-t">
-                  <div className="flex items-center gap-6">
-                    <div className="flex items-center gap-2">
-                      <Download className="w-5 h-5 text-primary" />
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                    <div className="flex items-center gap-2 text-xs sm:text-base">
+                      <Download className="w-4 h-4 sm:w-5 sm:h-5 text-primary" />
                       <span className="font-semibold">{selectedProject.downloads}</span>
                       <span className="text-muted-foreground">Downloads</span>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <Star className="w-5 h-5 text-yellow-500" />
+                    <div className="flex items-center gap-2 text-xs sm:text-base">
+                      <Star className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
                       <span className="font-semibold">{selectedProject.rating}</span>
                       <span className="text-muted-foreground">Rating</span>
                     </div>
@@ -223,7 +223,7 @@ const ProjectsSection = () => {
                       href={selectedProject.playstore}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-sm w-full sm:w-auto justify-center"
                     >
                       <ExternalLink className="w-4 h-4" />
                       Get on Play Store

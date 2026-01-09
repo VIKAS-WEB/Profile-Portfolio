@@ -26,7 +26,7 @@ const HeroSection = () => {
             </div>
 
             <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-fade-up"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 animate-fade-up"
               style={{ animationDelay: "0.2s" }}
             >
               Hi, I'm{" "}
@@ -34,7 +34,7 @@ const HeroSection = () => {
             </h1>
 
             <p
-              className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 animate-fade-up"
+              className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-xl mb-6 sm:mb-8 animate-fade-up"
               style={{ animationDelay: "0.3s" }}
             >
               Building Secure & Scalable Mobile Applications with Flutter & Android.
@@ -95,7 +95,7 @@ const HeroSection = () => {
           {/* Profile Image */}
           <div className="order-1 lg:order-2 flex justify-center animate-fade-up" style={{ animationDelay: "0.3s" }}>
             <div className="relative">
-              <div className="w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary to-primary/60 p-1 animate-pulse-glow">
+              <div className="w-48 h-48 sm:w-64 sm:h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-primary to-primary/60 p-1 animate-pulse-glow">
                 <div className="w-full h-full rounded-full bg-gradient-to-br from-zinc-900 via-zinc-2500 to-zinc-700 flex items-center justify-center overflow-hidden">
 
                   <img 

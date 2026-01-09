@@ -95,6 +95,13 @@
 
   body {
     @apply bg-background text-foreground font-poppins antialiased;
+    font-size: clamp(14px, 2.5vw, 16px);
+  }
+
+  @media (max-width: 640px) {
+    html {
+      font-size: 14px;
+    }
   }
 }
 
