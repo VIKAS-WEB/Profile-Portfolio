@@ -68,6 +68,7 @@ const ContactSection = () => {
     try {
       if (!formRef.current) return;
 
+      // send notification to admin (uses hidden to_email in the form)
       await emailjs.sendForm(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -75,9 +76,33 @@ const ContactSection = () => {
         EMAILJS_PUBLIC_KEY
       );
 
+      // send confirmation email to the submitter (if their email exists)
+      const userEmail = formData.email;
+      const userName = formData.name;
+      const userMessage = formData.message;
+
+      if (userEmail) {
+        try {
+          await emailjs.send(
+            EMAILJS_SERVICE_ID,
+            EMAILJS_TEMPLATE_ID,
+            {
+              from_name: userName,
+              from_email: userEmail,
+              message: userMessage,
+              to_email: userEmail,
+            },
+            EMAILJS_PUBLIC_KEY
+          );
+        } catch (err) {
+          // Non-fatal: log and continue. Admin already received email.
+          console.error("EmailJS confirmation error:", err);
+        }
+      }
+
       toast({
         title: "Message Sent!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+        description: "Thank you for reaching out. A confirmation email has been sent to you.",
       });
 
       setFormData({ name: "", email: "", message: "" });
